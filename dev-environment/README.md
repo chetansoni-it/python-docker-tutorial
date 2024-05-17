@@ -29,8 +29,8 @@ Use `Dockerfile` and the code in scr directory
 
 ```console
 docker build -t fastapi-image .
-docker run --name fastapi-container -p 80:80 fastapi-image
-docker run -d --name fastapi-container -p 80:80 fastapi-image
+docker run --name fastapi-container -p 8001:8000 fastapi-image
+docker run -d --name fastapi-container -p 8001:8000 fastapi-image
 ```
 ## 3. Immediate file changes (volumes)
 
@@ -39,7 +39,7 @@ docker run -d --name fastapi-container -p 80:80 fastapi-image
  docker ps -a
  docker rm fastapi-container
 
- docker run -d --name fastapi-container -p 80:80 -v $(pwd):/code fastapi-image
+ docker run -d --name fastapi-container -p 8001:8000 -v $(pwd):/code fastapi-image
  ```
 ## 4. Use IDE in Docker
 ## 5. Docker Compose
@@ -49,9 +49,9 @@ services:
   app:
     build: .
     container_name: python-server
-    command: uvicorn src.main:app --host 0.0.0.0 --port 80 --reload
+    command: uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
     ports:
-      - 80:80
+      - 8001:8000
       - 5678:5678
     volumes:
       - .:/code
@@ -96,7 +96,7 @@ services:
   app:
     ...
     ports:
-      - 80:80
+      - 8001:8000
       - 5678:5678
 ```
 
